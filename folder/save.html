@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn" onclick="storeLocally('testval', 'testprop')">save value</button>
+    <script>
+    const storeLocally= (info, prop)=>{
+        if(!localStorage.hasOwnProperty(prop)){
+            localStorage.setItem(prop, "[]");        
+        }
+        const rcLocal = JSON.parse(localStorage[prop]);
+        if (rcLocal.indexOf(info) == -1){
+            rcLocal.push(info);
+            localStorage.setItem(prop, JSON.stringify(rcLocal));
+        }
+        return rcLocal;
+    }
+
+    window.addEventListener('online',  e=>{
+        if (localStorage.length !==0){
+            console.log("send to database and clear if successful ", localStorage);
+            
+        }
+        console.log("onLine", {online: navigator.onLine})
+    });
+    window.addEventListener('offline', e=>console.log("offline", {online: navigator.onLine}));
+    </script>
+</body>
+</html>

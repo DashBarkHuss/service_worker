@@ -12,12 +12,11 @@ if('serviceWorker' in navigator) {
 
    var CACHE_NAME = 'static-cache';
    var urlsToCache = [
-     '.', 'index.html', 'folder/dash.html'
+     '.', 'index.html', 'folder/save.html'
    ]
 
    self.addEventListener('install', 
     function(e){
-      // console.log(19)
       e.waitUntil(caches.open(CACHE_NAME)
         .then(function(cache){
           return cache.addAll(urlsToCache)
@@ -29,7 +28,10 @@ if('serviceWorker' in navigator) {
       function(e){
         e.respondWith(
           caches.match(e.request)
-          .then(response=>response||fetch(event.request))
+          .then(response=>{
+            console.log(329);
+            return response||fetch(e.request)
+          })
         )
       }
     )
